@@ -1,0 +1,140 @@
+﻿.account-toggle {
+    padding: 0;
+    margin: 0;
+    height: 70px;
+    
+    
+}
+
+.account-toggle button {
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    outline: none !important;
+    box-shadow: 0 !important;
+    border: none !important;
+    font-size: 16pt;
+    
+    transition: 0.3s;
+}
+
+.account-toggle button.active {
+    background-color: #2e3192;
+    color: white;
+}
+
+.account-toggle button:focus {
+
+    outline: none !important;
+    box-shadow: 0 !important;
+    border: none !important;
+}
+
+    .account-toggle button:hover {
+        background-color: #c1c1c1;
+        outline: none !important;
+        box-shadow: 0 !important;
+        border: none !important;
+        color: black;
+    }
+
+.account-form {
+    background-color: #eeeeee;
+    
+    width: 100%;
+    border-radius: 0 0 15px 15px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.plan-list 
+{
+    display: flex;
+}
+.plan-list span{
+    flex: 1;
+}
+
+.card-cstm {
+    overflow:hidden;
+    height: 150px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+}
+
+.card-img-cstm {
+    height: 100px;
+    width: 160px;
+    
+}
+
+/* Payment */
+.payment-select {
+    
+    width: 100%;
+    /*background-color: #dbdbdb;*/
+    /*padding: 20px;*/
+    
+    gap: 10px;
+}
+
+    .payment-select .form-check {
+       
+        padding: 0 !important;
+        align-items: center;
+        margin: 0 !important;
+    }
+    .payment-select .row {
+        margin: 0;
+        padding: 0;
+    }
+    
+
+
+    .payment-select .form-check-input {
+        margin: 0; /* Removes any default margin */
+        display: none;
+    }
+    .payment-select .form-check-label {
+        margin-left: 0; /* Removes any default margin */
+        margin-top: 3%;
+    }
+        .payment-select .form-check-label span.payment-img {
+            margin-right: 30px;
+            margin-left: 10px; 
+        }
+
+    .payment-select .radio-div {
+        width: 100%;
+        padding: 20px;
+        border: 2px solid #dbdbdb;
+        border-radius: 5px;
+        background-color: #f3f3f3;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s, padding 0.3s;
+        transform: scale(1);
+        border-radius: 10px;
+        border: 1px solid #c4c4c4;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
+    .payment-select .radio-label {
+        width: 100%;
+        transform: scale(1);
+    }
+    .payment-select .form-check-input:checked + .radio-label .radio-div {
+        background-color: #dbdbdb;
+        border-color: #859bff;
+        color: blue;
+        padding: 25px;
+    }
+
+.header-sm {
+    
+    background-color: #859bff;
+    width: 100%;
+    z-index: 999;
+    height: 50px;
+    padding: 0 0;
+    
+    margin-bottom: 10px;
+}
+
+

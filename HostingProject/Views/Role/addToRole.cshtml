@@ -1,0 +1,39 @@
+﻿@model HostingProject.Models.RolesViewModel.AddUserModel
+@{
+    
+}
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="row">
+                <div class="col-12">
+                    <form method="post" asp-action="AddToRole">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label asp-for="roleId" class="control-label">Role ID</label>
+                                <input asp-for="roleId" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                                <label asp-for="UserEmail" class="control-label">User Email</label>
+                                <input asp-for="UserEmail" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-group">
+                               <input type="submit" class="btn btn-success" value="Add">
+                               <a class="btn btn-warning" asp-action="EditRole" asp-controller="Role" asp-route-roleId="@Model.roleId">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>

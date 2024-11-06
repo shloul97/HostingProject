@@ -1,0 +1,59 @@
+﻿@{
+    var services = ViewBag.Services;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            
+            @if (services.Count > 0)
+            {
+                <div class="row">
+                @foreach (var item in services)
+                {
+                    <div class="col-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h2 class="card-title">@item.Plan.planName</h2>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Storage: <span class="text-right">@item.Plan.storage</span></li>
+                                    <li class="list-group-item">RAM: <span>@item.Plan.RAM</span></li>
+                                    <li class="list-group-item">Plan: <span>@item.Plan.planType</span></li>
+                                    <li class="list-group-item">System: <span>@item.Plan.serverType</span></li>
+                                    <li class="list-group-item">Status:
+                                        @if (item.IsActive)
+                                        {
+                                            <span class="text-success">Active </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-danger">Closed</span>
+                                        }
+
+                                    </li>
+                                </ul>
+                            <div class="card-body">
+                                <a class="btn btn-primary" style="width:100%" asp-action="ServicePanel" asp-controller="Service" asp-route-serviceId="@item.sId">Go to Service Panel</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                }
+                </div>
+                
+            }
+            else
+            {
+                <div class="row">
+                    <div class="account-form p-3" >
+                        <h1>Unfortunately You don't have any service</h1>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<PlanViewModel>
+@{
+    ViewData["Title"] = "Hosting";
+}
+
+
+
+
+<!-- order -->
+<div class="order">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="titlepage text_align_center">
+                    <h2>Check Out Awesome Plans, <br> <span class="blue_light">Order Now</span></h2>
+                    <p>
+                        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                        officia deserunt mollit anim id est laborum."
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4">
+                    <div id="ho_co" class="order-box_main">
+                        <div class="order-box text_align_center">
+                            <h3>@item.planName</h3>
+                            <p>  <span>$@item.price</span> PER MONTH</p>
+                            <a href="Javascript:void(0)">Best Offer</a>
+                            <ul class="supp">
+                                <li>@item.planType</li>
+                                <li><div class="plan-list"><span class="text-left">Server:</span><span class="font-weight-bold">@item.serverType</span></div></li>
+                                <li><div class="plan-list"><span class="text-left">CPU:</span><span class="font-weight-bold">@item.CPU</span></div></li>
+                                <li><div class="plan-list"><span class="text-left">RAM:</span><span class="font-weight-bold">@item.RAM</span></div></li>
+                                <li><div class="plan-list"><span class="text-left">Bandwidth:</span><span class="font-weight-bold">@item.bandwidth</span></div></li>
+                                <li><div class="plan-list"><span class="text-left">Storage:</span><span class="font-weight-bold">@item.storage</span></div></li>
+                                <li><div class="plan-list"><span class="text-left">Database:</span><span class="font-weight-bold">@item.database</span></div></li>
+                                <li><div class="plan-list"><span class="font-weight-bold">@item.protection</span></div></li>
+                                <li>@if (item.ssl)
+                                    {
+                                        <span class="font-weight-bold text-success">Free SSL</span>
+                                    }
+                                </li>
+                                <li>
+                                    @if (item.upgrade)
+                                    {
+                                        <span class="font-weight-bold">Upgradable</span>
+                                    }
+                                </li>
+                                <li>24/7 support</li>
+                            </ul>
+                        </div>
+                        <a class="read_more" asp-route-planId="@item.planId" asp-action="AddToCart" asp-controller="Cart">Buy Now</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- end order -->

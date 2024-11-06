@@ -1,0 +1,237 @@
+﻿@model HostingProject.Models.CartViewModel.UserInformation
+@using System.Collections.Generic
+@using System.Text.Json
+
+@{
+    var items = ViewBag.Items;
+    var totalPrice = 0;
+    ViewData["Title"] = "Cart";
+    List<int> cartIds = new List<int>();
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 mt-3">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            @if (items.Count > 0)
+            {
+                for (int i = 0; i < items.Count; i++)
+                {
+                    cartIds.Add(items[i].cartId);    
+                }
+                
+                
+                <div class="row">
+                    <div class="col-md-6 account-form">
+                        
+                    @foreach (var item in items)
+                    {
+                    
+                        totalPrice += item.price;
+                        
+
+                        <div class="card mt-3 mb-3 card-group-cstm" style="width: 100%;">
+                            <div class="card-cstm">
+                                <div class="text-right p-1 ">
+                                        <a class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Remove Item From Cart" asp-action="RemoveFromCart" asp-controller="Cart" asp-route-cartId="@item.cartId" alt="Remove Item"><i class="fa-regular fa-trash-can"></i></a>
+                                </div>
+                            <!--<div class="card-img-cstm align-self-center">
+                                    <img class="card-img-top p-3" src="~/images/@(item.planName).png" alt="Card image cap">
+                                    </div>-->
+                            
+                            
+                                <div class="card-body">
+                                    <h1 class="card-title">@item.planName</h1>
+                                    <h2 class="card-text text-success">$@item.price</h2>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">@item.planType</li>
+                                    <li class="list-group-item">@item.serverType</li>
+                                    <li class="list-group-item">@item.storage</li>
+                                    <li class="list-group-item">@item.RAM</li>
+                                    <li class="list-group-item">@item.cpu</li>
+                                    <li class="list-group-item">@item.bw</li>
+                                    <li class="list-group-item">@item.prot</li>
+                                    <li class="list-group-item">@item.ssl</li>
+                                </ul>
+                            </div>
+                            <div class="text-center">
+                                    <a class="btn btn-dark collapsinga" style="width:100%; color:white" name="cart-item-collapse">Show More...</a>
+                            </div>
+                            
+
+                        </div>
+                        
+                        
+                    
+                    }
+                    </div>
+                    <div class="col-md-6 ">
+                        <!-- Order Summury -->
+                        <div class="account-form p-3 mt-3" id="summury-div">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2 class="card-title">Order Summury</h2>
+                                    <hr />
+                                    <div class="mb-3">
+                                        <h3>Setup Fee: <span class="float-right">$0</span></h3>
+                                    </div>
+                                    <div class="mb-3">
+                                        <h3>Subtotal : <span class="float-right text-success font-weight-bold">$@totalPrice </span></h3>
+                                    </div>
+                                     <hr />
+                                    <div class="text-center">
+                                        <a href="#" class="btn btn-warning" style="width:100%" id="summary-btn">I'm Ready to Pay</a>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        <!-- Payment Selection -->
+                        <div class="account-form p-3 mt-3" id="payment-div" style="display:none;">
+                            <div style="width: 100%" class="payment-select">
+                                <div class="form-check">
+                                    <input type="radio" name="payment-select" class="form-check-input" id="pay-1" />
+                                    <label for="pay-1" class="form-check-label radio-label">
+                                        <div class="radio-div">
+                                            <span class="payment-img"><i class="fa-brands fa-cc-paypal fa-2xl"></i></span>
+                                            <span>Paypal</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-check mt-3">
+                                    <input type="radio" name="payment-select" class="form-check-input" id="pay-2" />
+                                    <label for="pay-2" class="form-check-label radio-label">
+                                        <div class="radio-div">
+                                            <span class="payment-img"><i class="fa-solid fa-credit-card fa-2xl"></i></span>
+                                            <span>Credit Cart</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-check mt-3">
+                                    <input type="radio" name="payment-select" class="form-check-input" id="pay-3" />
+                                    <label for="pay-3" class="form-check-label radio-label">
+                                        <div class="radio-div">
+                                            <span class="payment-img"><i class="fa-brands fa-bitcoin fa-2xl"></i></span>
+                                            <span>Crypto Currencies </span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <a class="btn btn-warning disabled" style="width:100%;" id="payment-btn">Continue</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- User Information -->
+                        <div class="account-form p-3 mt-3 " id="user-div" style="display:none;">
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <h1>User Information</h1>
+                                </div>
+                            </div>
+                           <div class="row">
+                               <div class="col-md-12">
+                                    <form method="post" id="userInfo-form">
+                                        
+                                        <div class="form-group">
+                                            <label asp-for="FullName" class="control-label">Full Name</label>
+                                            <input asp-for="FullName" class="form-control" />
+                                            <span asp-validation-for="FullName" class="text-danger"></span>                                        
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="phone" class="control-label">Phone</label>
+                                            <input asp-for="phone" class="form-control" />
+                                            <span asp-validation-for="phone" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="country" class="control-label">Country</label>
+                                            <input asp-for="country" class="form-control" />
+                                            <span asp-validation-for="country" class="text-danger"></span>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label asp-for="Address1" class="control-label">Address 1</label>
+                                            <input asp-for="Address1" class="form-control" />
+                                            <span asp-validation-for="Address1" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Address2" class="control-label">Address2</label>
+                                            <input asp-for="Address2" class="form-control" required="false"/>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="city" class="control-label">City</label>
+                                            <input asp-for="city" class="form-control" />
+                                            <span asp-validation-for="country" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-warning" style="width:100%" value="">Save Data</button>
+                                        </div>
+                                    </form>
+
+                                    
+
+                               </div>
+                           </div>
+                        </div>
+                        <!--Checkout Div-->
+                        <div class="account-form p-3 mt-3 " id="checkout-div" style="display:none;">
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <h1>Checkout</h1>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form asp-action="Checkout" asp-controller="Cart" method="post">
+                                        @foreach (var cart in cartIds)
+                                        {
+                                            <input type="hidden" name="cartIds" value="@cart" />
+                                        }
+                                        <div class="form-group">
+                                            <button class="btn btn-warning" type="submit" style="width:100%"><i class="fa-solid fa-lock"></i><span style="margin-left:6px;">Checkout</span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+
+                </div>
+            }  
+            else
+            {
+                <div class="text-center">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <h1>Your Shopping cart is Empty! </h1>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <h3>Look Like You Haven't Made Your Choice Yet</h3>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <a class="btn btn-primary" asp-action="Hosting" asp-controller="Home">Check what we've got for you</a>
+                        </div>
+                    </div>
+                </div>
+                
+            }
+            
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+<script src="~/js/cart.js"></script>
